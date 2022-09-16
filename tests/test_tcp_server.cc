@@ -2,7 +2,7 @@
  * @file test_tcp_server.cc
  * @brief TcpServer类测试
  */
-#include "serverframework/serverframework.h"
+#include "serverframework.h"
 
 static serverframework::Logger::ptr g_logger = LOG_ROOT();
 

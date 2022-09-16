@@ -19,7 +19,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -rdynamic -fPIC")
 # -Wno-deprecated-declarations: 不要警告使用带deprecated属性的变量，类型，函数
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-function -Wno-builtin-macro-redefined -Wno-deprecated -Wno-deprecated-declarations")
 
-include_directories(.)
+include_directories(${PROJECT_SOURCE_DIR}/serverframework)
+
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 option(BUILD_TEST "ON for complile test" ON)
 
@@ -28,27 +31,7 @@ if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-set(LIB_SRC
-    serverframework/log.cpp
-    serverframework/util.cpp
-    serverframework/mutex.cc
-    serverframework/env.cc
-    serverframework/config.cc
-    serverframework/thread.cc
-    serverframework/fiber.cc
-    serverframework/scheduler.cc
-    serverframework/iomanager.cc
-    serverframework/timer.cc
-    serverframework/fd_manager.cc
-    serverframework/hook.cc
-    serverframework/address.cc 
-    serverframework/socket.cc 
-    serverframework/bytearray.cc 
-    serverframework/tcp_server.cc 
-    serverframework/daemon.cc 
-    )
-
-add_library(serverframework SHARED ${LIB_SRC})
+add_subdirectory(serverframework)
 force_redefine_file_macro_for_sources(serverframework)
 
 set(LIBS
@@ -76,7 +59,5 @@ my_add_executable(test_socket_tcp_client "tests/test_socket_tcp_client.cc" serve
 my_add_executable(test_bytearray "tests/test_bytearray.cc" serverframework "${LIBS}")
 my_add_executable(test_tcp_server "tests/test_tcp_server.cc" serverframework "${LIBS}")
 my_add_executable(test_daemon "tests/test_daemon.cc" serverframework "${LIBS}")
+# add_executable(test_log tests/test_log.cpp serverframework )
 endif()
-
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

@@ -3,7 +3,7 @@
  * @brief 配置模块测试
  */
 
-#include "serverframework/serverframework.h"
+#include "serverframework.h"
 
 serverframework::Logger::ptr g_logger = LOG_ROOT();
 

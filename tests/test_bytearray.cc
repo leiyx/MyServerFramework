@@ -2,7 +2,7 @@
  * @file test_bytearray.cc
  * @brief Bytearray类测试
  */
-#include <serverframework/serverframework.h>
+#include "serverframework.h"
 
 #include <algorithm>
 
